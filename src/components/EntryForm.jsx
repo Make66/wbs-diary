@@ -16,70 +16,72 @@ const EntryForm = ({ entries, setEntries }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = (e) => {
     if (
       !formData.title ||
       !formData.date ||
       !formData.image ||
       !formData.content
     ) {
+      e.preventDefault();
       alert("Alle Felder werden benötigt!");
       return;
     }
+    setEntries([...entries, formData]);
     setFormData(defaultFormData);
-    setEntries(entries.push(formData));
   };
 
   return (
-    <>
-      <form
-        method="dialog"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: " .5rem",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <label>
-          Title
-          <input
-            name="title"
-            type="text"
-            onChange={handleChange}
-            value={formData.title}
-          />
-        </label>
-        <label>
-          Date
-          <input
-            name="date"
-            type="text"
-            onChange={handleChange}
-            value={formData.date}
-          />
-        </label>
-        <label>
-          Image URL
-          <input
-            name="image"
-            type="text"
-            onChange={handleChange}
-            value={formData.image}
-          />
-        </label>
-        <label>
-          Content
-          <textarea
-            name="content"
-            onChange={handleChange}
-            value={formData.content}
-          />
-        </label>
-        <button type="submit">Send</button>
-      </form>
-    </>
+    <form method="dialog" className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <label className="form-control w-full text-left">
+        <span className="label-text">Title</span>
+
+        <input
+          name="title"
+          type="text"
+          className="input input-bordered w-full"
+          placeholder="Entry title"
+          onChange={handleChange}
+          value={formData.title}
+        />
+      </label>
+      <label className="form-control w-full text-left">
+        <span className="label-text">Date</span>
+
+        <input
+          name="date"
+          type="date"
+          className="input input-bordered w-full"
+          onChange={handleChange}
+          value={formData.date}
+        />
+      </label>
+      <label className="form-control w-full text-left">
+        <span className="label-text">Image URL</span>
+
+        <input
+          name="image"
+          type="url"
+          className="input input-bordered w-full"
+          placeholder="https://example.com/image.jpg"
+          onChange={handleChange}
+          value={formData.image}
+        />
+      </label>
+      <label className="form-control w-full text-left">
+        <span className="label-text">Content</span>
+
+        <textarea
+          name="content"
+          className="textarea textarea-bordered w-full"
+          rows={4}
+          placeholder="Write your entry..."
+          onChange={handleChange}
+          value={formData.content}
+        />
+      </label>
+      <button type="submit" className="btn btn-primary w-full">Send</button>
+    </form>
   );
 };
 

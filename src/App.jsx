@@ -1,8 +1,7 @@
 import AddEntryButton from "./components/AddEntryButton";
 
 import "./App.css";
-import { useState } from "react";
-// import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import EntryList from "./components/EntryList";
 import AddEntryModal from "./components/AddEntryModal";
@@ -11,10 +10,16 @@ import Navigation from "./components/Navigation";
 
 
 const App = () => {
-  const [entries, setEntries] = useState([]);
-  // const [selectedEntry, setSelectedEntry] = useState(null);
-  // const [modalRef, setModalRef] = useState(null);
+  const [entries, setEntries] = useState(() => {
+    const stored = localStorage.getItem("diary-entries");
+    return stored ? JSON.parse(stored) : [];
+  });
+  const [selectedEntry, setSelectedEntry] = useState(null);
   const [modalFlag, setModalFlag] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("diary-entries", JSON.stringify(entries));
+  }, [entries]);
   
   return (
     <div className="flex flex-col h-screen w-full">
@@ -26,12 +31,14 @@ const App = () => {
         </aside>
         <section className="grow p-4 sm:p-6 lg:p-8 overflow-y-auto bg-gray-50 w-full">
           <h2 className="text-2xl font-bold mb-4">Diary area</h2>
+          <EntryList entries={entries} onSelectEntry={setSelectedEntry} />
           <AddEntryModal
             isOpen={modalFlag}
             onClose={() => setModalFlag(false)}
             entries={entries}
             setEntries={setEntries}
           />
+          <ViewEntryModal entry={selectedEntry} entries={entries} onSelectEntry={setSelectedEntry} onClose={() => setSelectedEntry(null)} />
         </section>
       </main>
 
