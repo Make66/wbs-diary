@@ -1,48 +1,69 @@
-# wbs-diary
-react training
+# WBS Diary
 
-## Functional Requirements
-FR001: Public GitHub Repository: Store all code in a single public repo; do not add instructors as collaborators.
+A personal daily diary web application built with React as a WBS Coding School training project. Users can create, browse, and view diary entries — all persisted locally in the browser.
 
-FR002: Incremental Development with PRs: Merge every change into main via Pull Requests.
+## Features
 
-FR003: React + Vite Setup: Scaffold the app with Vite and use React as the UI framework.
+- Create diary entries with title, date, image URL, and content
+- Entries displayed as cards in a responsive grid, sorted newest-first
+- Click a card to view the full entry in a detail modal
+- Navigate between entries with keyboard arrow keys
+- Form validation ensures all fields are filled before submission
+- Data persisted in localStorage — no backend required
 
-FR004: TailwindCSS via npm: Install Tailwind through npm and configure it with Vite.
+## Tech Stack
 
-FR005: State & Effects Management: Use React hooks (useState, useEffect, etc.) appropriately for UI state and side-effects.
+- **React 19** with Vite 7
+- **TailwindCSS 4** with DaisyUI 5
+- **localStorage** for data persistence
 
-FR006: Add Entry Button: Provide an “Add Entry” button that opens an entry-creation modal. Control showing/hidding the modal with state. A simple form will do.
+## Getting Started
 
-FR007: Add Entry Form Fields: Form must collect Title, Date, Image URL, Content.
+### Prerequisites
 
-FR008: LocalStorage Persistence: Store diary entries as an array in localStorage
+- Node.js and npm
 
-FR009: One-Entry-Per-Day Check: If an entry already exists for the selected day, prompt the user to come back the next day.
+### Installation
 
-FR010: Form Validation: Block submission unless all fields are populated.
-
-FR011: Homepage List: Display diary entries sorted newest-first.
-
-FR012: Load Entries on Startup: Read and render stored entries when the app first mounts.
-
-FR013: Card Layout: Show each entry as a card with preview image, date and title.
-
-FR014: Entry Detail Modal: Clicking a card opens a modal showing full entry (title, date, image, content). Control showing/hidding the preview modal, as well as its content, with state.
-
-FR015: Static-Site Deployment to Render: Build the app with Vite and deploy the static assets on Render. 
-
-## Basic requirements
-node.js and npm must be present
-
-## Public GitHub Repository
-cd ~/dev/wbs/
+```bash
 git clone git@github.com:Make66/wbs-diary.git
 cd wbs-diary
+npm install
+```
 
-## React + Vite Setup
-npm create vite@latest . -- --template react --no-rolldown 
+### Development
 
-## TailwindCSS & DaisyUI via npm
-npm install tailwindcss @tailwindcss/vite
-npm i -D daisyui@latest
+```bash
+npm run dev
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── App.jsx                  # Main app component with state management
+├── main.jsx                 # React entry point
+├── App.css                  # Global styles and Tailwind imports
+└── components/
+    ├── Header.jsx           # Top navigation bar
+    ├── Navigation.jsx       # Sidebar navigation
+    ├── EntryList.jsx        # Grid display of entry cards
+    ├── EntryCard.jsx        # Individual entry preview card
+    ├── AddEntryButton.jsx   # Button to open the add-entry modal
+    ├── AddEntryModal.jsx    # Modal wrapper for the entry form
+    ├── EntryForm.jsx        # Entry creation form with validation
+    ├── ViewEntryModal.jsx   # Detail modal with arrow-key navigation
+    └── EntryDetails.jsx     # Full entry display
+```
